@@ -1,0 +1,20 @@
+---
+- name: ensure specified locales are present
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ locales_locales_present }}"
+
+- name: ensure specified locales are absent
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ locales_locales_absent }}"
+
+- name: configure locales
+  ansible.builtin.template:
+    src: locale.conf.j2
+    dest: "{{ locales_conf_file }}"
+    owner: root
+    group: root
+    mode: 0644
