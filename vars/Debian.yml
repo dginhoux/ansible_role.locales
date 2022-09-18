@@ -1,8 +1,0 @@
----
-
-locales_required_packages:
-  - tzdata
-  - locales
-  - console-data
-
-locales_conf_file: /etc/default/locale
