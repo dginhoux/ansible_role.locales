@@ -15,7 +15,6 @@ Role Variables
 --------------
 
 Necessary variables are defined on `defaults/main.yml`.
-Specifics variables are in `vars/{{ ansible_os_family }}`.
 
 ```yaml
 locales_language_packages:
@@ -47,10 +46,19 @@ locales_default_locales_list:
 
 locales_keymap: fr
 locales_keymap_toggle:
-
 ```
 
 
+Specifics variables are in `vars/{{ ansible_os_family }}`  ; example for Debian OS family : 
+
+```yaml
+locales_required_packages:
+  - tzdata
+  - locales
+  - console-data
+
+locales_conf_file: /etc/default/locale
+```
 
 Dependencies
 ------------
@@ -66,8 +74,7 @@ Example Playbook
 License
 -------
 
-BSD
-This role is inspired from : https://github.com/aisbergg/ansible-role-localization
+BSD ; This role is forked from : https://github.com/aisbergg/ansible-role-localization
 
 
 Author Information
