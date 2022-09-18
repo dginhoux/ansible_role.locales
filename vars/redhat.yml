@@ -1,0 +1,6 @@
+---
+
+locales_required_packages:
+  - tzdata
+
+locales_conf_file: /etc/locale.conf
