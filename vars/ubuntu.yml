@@ -1,0 +1,16 @@
+---
+
+locales_required_packages:
+  - tzdata
+  - locales
+  - console-data
+
+locales_conf_file: /etc/default/locale
+
+locales_language_packages:
+  - name: language-pack-en
+    state: present
+  - name: language-pack-fr
+    state: present
+  - name: language-pack-de
+    state: absent

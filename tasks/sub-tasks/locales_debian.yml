@@ -1,15 +1,21 @@
 ---
-- name: ensure specified locales are present
+- name: generate locales
   community.general.locale_gen:
-    name: "{{ item }}"
-    state: present
-  loop: "{{ locales_locales_present }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  loop: "{{ locales_locales_list }}"
+  
+# - name: ensure specified locales are present
+#   community.general.locale_gen:
+#     name: "{{ item }}"
+#     state: present
+#   loop: "{{ locales_locales_present }}"
 
-- name: ensure specified locales are absent
-  community.general.locale_gen:
-    name: "{{ item }}"
-    state: absent
-  loop: "{{ locales_locales_absent }}"
+# - name: ensure specified locales are absent
+#   community.general.locale_gen:
+#     name: "{{ item }}"
+#     state: absent
+#   loop: "{{ locales_locales_absent }}"
 
 - name: configure locales
   ansible.builtin.template:

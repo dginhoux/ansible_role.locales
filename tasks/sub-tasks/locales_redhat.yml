@@ -3,20 +3,40 @@
     - name: ensure specified locales are present on RedHat 7 distributions
       ansible.builtin.command: >-
         localedef
-        -i {{ item | langcode | quote }}
-        -f {{ item | encoding | quote }}
-        {{ item | encoding2lower | quote }}
+        -i {{ item.name | langcode | quote }}
+        -f {{ item.name | encoding | quote }}
+        {{ item.name | encoding2lower | quote }}
       changed_when: false
-      loop: "{{ locales_locales_present }}"
+      loop: "{{ locales_locales_list }}"
+      when: item.state == "present"
 
     - name: ensure specified locales are absent on RedHat 7 distributions
       ansible.builtin.command: >-
         localedef
-        --delete-from-archive {{ item | langcode | quote }}
-        -f {{ item | encoding | quote }}
-        {{ item | encoding2lower | quote }}
+        --delete-from-archive {{ item.name | langcode | quote }}
+        -f {{ item.name | encoding | quote }}
+        {{ item.name | encoding2lower | quote }}
       changed_when: false
-      loop: "{{ locales_locales_absent }}"
+      loop: "{{ locales_locales_list }}"
+      when: item.state == "absent"
+
+    # - name: ensure specified locales are present on RedHat 7 distributions
+    #   ansible.builtin.command: >-
+    #     localedef
+    #     -i {{ item | langcode | quote }}
+    #     -f {{ item | encoding | quote }}
+    #     {{ item | encoding2lower | quote }}
+    #   changed_when: false
+    #   loop: "{{ locales_locales_present }}"
+
+    # - name: ensure specified locales are absent on RedHat 7 distributions
+    #   ansible.builtin.command: >-
+    #     localedef
+    #     --delete-from-archive {{ item | langcode | quote }}
+    #     -f {{ item | encoding | quote }}
+    #     {{ item | encoding2lower | quote }}
+    #   changed_when: false
+    #   loop: "{{ locales_locales_absent }}"
   when:
     - ansible_distribution_major_version is version('7', '<=')
 

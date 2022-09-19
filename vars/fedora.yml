@@ -1,0 +1,14 @@
+---
+
+locales_required_packages:
+  - tzdata
+
+locales_conf_file: /etc/locale.conf
+
+locales_language_packages:
+  - name: glibc-langpack-en
+    state: present
+  - name: glibc-langpack-fr
+    state: present
+  - name: glibc-langpack-de
+    state: absent

@@ -10,6 +10,10 @@
     name: "{{ item.name }}"
     state: "{{ item.state }}"
   loop: "{{ locales_language_packages | flatten }}"
+  when: 
+    - locales_language_packages is defined
+    - locales_language_packages is iterable
+    - locales_language_packages | length > 0
 
 - name: "load tasks for configure locales for {{ ansible_os_family }}"
   ansible.builtin.include_tasks:

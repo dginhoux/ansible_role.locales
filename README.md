@@ -17,28 +17,13 @@ Role Variables
 Necessary variables are defined on `defaults/main.yml`.
 
 ```yaml
-locales_language_packages:
-  ## REDHAT
-  - name: glibc-langpack-en
+locales_locales_list:
+  - name: en_US.UTF-8
     state: present
-  - name: glibc-langpack-fr
+  - name: fr_FR.UTF-8
     state: present
-  - name: glibc-langpack-de
+  - name: de_DE.UTF-8
     state: absent
-  ## UBUNTU
-  # - name: language-pack-en
-  #   state: present
-  # - name: language-pack-fr
-  #   state: present
-  # - name: language-pack-de
-  #   state: absent
-
-locales_locales_present:
-  - en_US.UTF-8
-  - fr_FR.UTF-8
-
-locales_locales_absent:
-  - de_DE.UTF-8
 
 locales_default_locales_list:
   LANG: en_US.UTF-8
@@ -46,10 +31,27 @@ locales_default_locales_list:
 
 locales_keymap: fr
 locales_keymap_toggle:
+
+locales_variables_list:
+  - LANG
+  - LANGUAGE
+  - LC_ADDRESS
+  - LC_COLLATE
+  - LC_CTYPE
+  - LC_IDENTIFICATION
+  - LC_MONETARY
+  - LC_MESSAGES
+  - LC_MEASUREMENT
+  - LC_NAME
+  - LC_NUMERIC
+  - LC_PAPER
+  - LC_TELEPHONE
+  - LC_TIME
+  - LC_ALL
 ```
 
 
-Specifics variables are in `vars/{{ ansible_os_family }}`  ; example for Debian OS family : 
+Specifics variables are in `vars/` yml files ; example for RedHat 8 : 
 
 ```yaml
 locales_required_packages:
@@ -58,6 +60,14 @@ locales_required_packages:
   - console-data
 
 locales_conf_file: /etc/default/locale
+
+locales_language_packages:
+  - name: glibc-langpack-en
+    state: present
+  - name: glibc-langpack-fr
+    state: present
+  - name: glibc-langpack-de
+    state: absent
 ```
 
 Dependencies
