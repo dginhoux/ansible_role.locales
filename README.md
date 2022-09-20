@@ -84,7 +84,7 @@ Example Playbook
 License
 -------
 
-BSD ; This role is forked from : https://github.com/aisbergg/ansible-role-localization
+BSD ; This role is inspired from https://github.com/aisbergg/ansible-role-localization
 
 
 Author Information
