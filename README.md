@@ -1,20 +1,70 @@
-Ansible Role : dginhoux.locales
-=========
-
-This ansible role configure locales
+# ROLE dginhoux.locales
 
 
-Requirements
-------------
 
-This role require a supported platform defined in `meta/main.yml`.
-It will skip node with unsupported platform ; this behaviour can be bypassed by settings this variable `asserts_bypass=True`.
+## DESCRIPTION
+
+This ansible role configure locales.<br />
+It 
 
 
-Role Variables
---------------
 
-Necessary variables are defined on `defaults/main.yml`.
+## REQUIREMENTS
+
+#### SUPPORTED PLATFORMS
+
+This role require a supported platform.<br />
+It will skip node with unsupported platform to avoid any compatibility problem.<br />
+This behaviour can be bypassed by settings the following variable `asserts_bypass=True`.
+
+| Platform | Versions |
+|----------|----------|
+| Debian | buster, bullseye |
+| Fedora | 33, 34, 35, 36 |
+| EL | 7, 8 |
+
+#### ANSIBLE VERSION
+
+Ansible >= 2.12
+
+#### DEPENDENCIES
+
+None.
+
+
+
+## INSTALLATION
+
+#### ANSIBLE GALAXY
+
+```shell
+ansible-galaxy install dginhoux.git_repos
+```
+#### GIT
+
+```shell
+git clone https://github.com/dginhoux/ansible_role.locales dginhoux.locales
+```
+
+
+## USAGE
+
+#### EXAMPLE PLAYBOOK
+
+```yaml
+- hosts: all
+  roles:
+    - name: start role dginhoux.locales
+      ansible.builtin.include_role:
+        name: dginhoux.locales
+```
+
+
+## VARIABLES
+
+#### DEFAULT VARIABLES
+
+Defaults variables defined in `defaults/main.yml` : 
 
 ```yaml
 locales_locales_list:
@@ -50,8 +100,12 @@ locales_variables_list:
   - LC_ALL
 ```
 
+#### DEFAULT OS SPECIFIC VARIABLES
 
-Specifics variables are in `vars/` yml files ; example for RedHat 8 : 
+Those variables files are located in `vars/*.yml` are used to handle OS differences.<br />
+One of theses is loaded dynamically during role runtime using the `include_vars` module and set OS specifics variable's.
+
+* Debian Family
 
 ```yaml
 locales_required_packages:
@@ -60,6 +114,15 @@ locales_required_packages:
   - console-data
 
 locales_conf_file: /etc/default/locale
+```
+
+* Fedora Family
+
+```yaml
+locales_required_packages:
+  - tzdata
+
+locales_conf_file: /etc/locale.conf
 
 locales_language_packages:
   - name: glibc-langpack-en
@@ -70,24 +133,39 @@ locales_language_packages:
     state: absent
 ```
 
-Dependencies
-------------
+* RedHat 8 Family
 
-none
+```yaml
+locales_required_packages:
+  - tzdata
+
+locales_conf_file: /etc/locale.conf
+
+locales_language_packages:
+  - name: glibc-langpack-en
+    state: present
+  - name: glibc-langpack-fr
+    state: present
+  - name: glibc-langpack-de
+    state: absent
+```
+
+* RedHat Family
+
+```yaml
+locales_required_packages:
+  - tzdata
+
+locales_conf_file: /etc/locale.conf
+```
 
 
-Example Playbook
-----------------
+## AUTHOR
+
+Dany GINHOUX - https://github.com/dginhoux
 
 
 
-License
--------
+## LICENSE
 
-BSD ; This role is inspired from https://github.com/aisbergg/ansible-role-localization
-
-
-Author Information
-------------------
-
-https://github.com/dginhoux/
+MIT

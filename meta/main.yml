@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   role_name: locales
-  description: configure locales
+  description: dginhoux.locales
   author: Dany GINHOUX
   company: dginhoux
   license: MIT
