@@ -1,10 +1,10 @@
 ---
-- name: generate locales
+- name: Generate locales
   community.general.locale_gen:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
   loop: "{{ locales_locales_list }}"
-  
+
 # - name: ensure specified locales are present
 #   community.general.locale_gen:
 #     name: "{{ item }}"
@@ -17,7 +17,7 @@
 #     state: absent
 #   loop: "{{ locales_locales_absent }}"
 
-- name: configure locales
+- name: Configure locales
   ansible.builtin.template:
     src: locale.conf.j2
     dest: "{{ locales_conf_file }}"

@@ -1,6 +1,9 @@
 ---
-- block:
-    - name: ensure specified locales are present on RedHat 7 distributions
+- name: Specific RHEL 7
+  when:
+    - ansible_distribution_major_version is version('7', '<=')
+  block:
+    - name: Ensure specified locales are present on RedHat 7 distributions
       ansible.builtin.command: >-
         localedef
         -i {{ item.name | langcode | quote }}
@@ -10,7 +13,7 @@
       loop: "{{ locales_locales_list }}"
       when: item.state == "present"
 
-    - name: ensure specified locales are absent on RedHat 7 distributions
+    - name: Ensure specified locales are absent on RedHat 7 distributions
       ansible.builtin.command: >-
         localedef
         --delete-from-archive {{ item.name | langcode | quote }}
@@ -37,10 +40,8 @@
     #     {{ item | encoding2lower | quote }}
     #   changed_when: false
     #   loop: "{{ locales_locales_absent }}"
-  when:
-    - ansible_distribution_major_version is version('7', '<=')
 
-- name: configure locales
+- name: Configure locales
   ansible.builtin.template:
     src: locale.conf.j2
     dest: "{{ locales_conf_file }}"

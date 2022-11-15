@@ -1,5 +1,5 @@
 ---
-- name: configure console keymap
+- name: Configure console keymap
   ansible.builtin.lineinfile:
     path: /etc/vconsole.conf
     regexp: "{{ item.regexp }}"
