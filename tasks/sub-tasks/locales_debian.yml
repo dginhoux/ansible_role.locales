@@ -1,9 +1,9 @@
 ---
 - name: Generate locales
+  loop: "{{ locales_locales_list }}"
   community.general.locale_gen:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
-  loop: "{{ locales_locales_list }}"
 
 # - name: ensure specified locales are present
 #   community.general.locale_gen:

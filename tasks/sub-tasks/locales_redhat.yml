@@ -14,14 +14,14 @@
       when: item.state == "present"
 
     - name: Ensure specified locales are absent on RedHat 7 distributions
+      when: item.state == "absent"
+      changed_when: false
+      loop: "{{ locales_locales_list }}"
       ansible.builtin.command: >-
         localedef
         --delete-from-archive {{ item.name | langcode | quote }}
         -f {{ item.name | encoding | quote }}
         {{ item.name | encoding2lower | quote }}
-      changed_when: false
-      loop: "{{ locales_locales_list }}"
-      when: item.state == "absent"
 
     # - name: ensure specified locales are present on RedHat 7 distributions
     #   ansible.builtin.command: >-

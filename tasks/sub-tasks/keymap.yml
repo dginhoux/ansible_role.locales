@@ -1,5 +1,11 @@
 ---
 - name: Configure console keymap
+  loop:
+    - regexp: "^KEYMAP="
+      line: "KEYMAP={{ locales_keymap }}"
+    - regexp: "^KEYMAP_TOGGLE="
+      line: "KEYMAP_TOGGLE={{ locales_keymap_toggle }}"
+      state: "{{ locales_keymap_toggle is none | ternary('absent', 'present') }}"
   ansible.builtin.lineinfile:
     path: /etc/vconsole.conf
     regexp: "{{ item.regexp }}"
@@ -9,9 +15,3 @@
     owner: root
     group: root
     mode: 0644
-  loop:
-    - regexp: "^KEYMAP="
-      line: "KEYMAP={{ locales_keymap }}"
-    - regexp: "^KEYMAP_TOGGLE="
-      line: "KEYMAP_TOGGLE={{ locales_keymap_toggle }}"
-      state: "{{ locales_keymap_toggle is none | ternary('absent', 'present') }}"

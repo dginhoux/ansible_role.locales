@@ -1,19 +1,19 @@
 ---
 - name: Install requireds packages
+  loop: "{{ locales_required_packages | flatten }}"
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
-  loop: "{{ locales_required_packages | flatten }}"
 
 - name: Manage language-packs packages
-  ansible.builtin.package:
-    name: "{{ item.name }}"
-    state: "{{ item.state }}"
-  loop: "{{ locales_language_packages | flatten }}"
   when:
     - locales_language_packages is defined
     - locales_language_packages is iterable
     - locales_language_packages | length > 0
+  loop: "{{ locales_language_packages | flatten }}"
+  ansible.builtin.package:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
 
 - name: "Load tasks for configure locales for {{ ansible_os_family }}"
   ansible.builtin.include_tasks:
