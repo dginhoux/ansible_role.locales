@@ -1,5 +1,6 @@
 ---
 - name: Generate locales
+  become: true
   loop: "{{ locales_locales_list }}"
   community.general.locale_gen:
     name: "{{ item.name }}"
@@ -18,6 +19,7 @@
 #   loop: "{{ locales_locales_absent }}"
 
 - name: Configure locales
+  become: true
   ansible.builtin.template:
     src: locale.conf.j2
     dest: "{{ locales_conf_file }}"

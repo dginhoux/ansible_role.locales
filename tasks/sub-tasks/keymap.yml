@@ -1,5 +1,6 @@
 ---
 - name: Configure console keymap
+  become: true
   loop:
     - regexp: "^KEYMAP="
       line: "KEYMAP={{ locales_keymap }}"

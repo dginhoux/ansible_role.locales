@@ -1,11 +1,13 @@
 ---
 - name: Install requireds packages
+  become: true
   loop: "{{ locales_required_packages | flatten }}"
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
 
 - name: Manage language-packs packages
+  become: true
   when:
     - locales_language_packages is defined
     - locales_language_packages is iterable
