@@ -4,5 +4,14 @@ locales_required_packages:
   - tzdata
   - locales
   - console-data
+  - keyboard-configuration
+  - console-setup
 
 locales_conf_file: /etc/default/locale
+
+locales_language_packages: []
+
+
+# sudo apt install -y keyboard-configuration console-setup
+# sudo sed -i 's/XKBLAYOUT=.*/XKBLAYOUT="fr"/' /etc/default/keyboard
+# sudo setupcon
