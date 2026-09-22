@@ -17,9 +17,9 @@
     name: "{{ item.name }}"
     state: "{{ item.state }}"
 
-- name: "Load tasks for configure locales for {{ ansible_os_family }}"
+- name: "Load tasks for configure locales for {{ ansible_facts['os_family'] }}"
   ansible.builtin.include_tasks:
-    file: "tasks/sub-tasks/locales_{{ ansible_os_family | lower }}.yml"
+    file: "tasks/sub-tasks/locales_{{ ansible_facts['os_family'] | lower }}.yml"
 
 - name: Load tasks for configure console keymap
   ansible.builtin.include_tasks:
